@@ -11,9 +11,7 @@ using Newtonsoft.Json.Converters;
 public class SnackSpawner : MonoBehaviour
 {
 
-////////////////////////////////
-// TODO: CHANGE B4 BUILD
-////////////////////////////////
+
 [SerializeField]
 string VIDEO_ID;
 ////////////////////////////////
@@ -71,7 +69,7 @@ string VIDEO_ID;
     }
     
 ////////////////////////////////
-// SPAWN A CARROT
+// SPAWN A SNACK
 ////////////////////////////////
     void SpawnSnack(){
         GameObject snack = Instantiate(snackPrefab) as GameObject;
