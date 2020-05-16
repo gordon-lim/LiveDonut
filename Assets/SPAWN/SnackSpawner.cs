@@ -134,7 +134,6 @@ string VIDEO_ID;
     // Iterate from backwards to find new chats
     for (int i = items.Length; i --> 0; )
     {
-        Debug.Log("Item" + items[i]);
         if (!seenChats.Contains(items[i].Id)) {
             SpawnSnack();
             seenChats.Add(items[i].Id);
