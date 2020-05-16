@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Net;
@@ -40,10 +41,12 @@ string VIDEO_ID;
     };
     private int pointer = 0;
     private int length = apiKeys.Count;
+    private int MAX_CHAT_COUNT = 1000;
     
     
     private int likeCount = 0;
-    private HashSet<string> seenChats = new HashSet<string>(); 
+    private OrderedHashSet<string> seenChats = new OrderedHashSet<string>();
+    private int seenChatCount = 0;
     
 ////////////////////////////////
 // START OF CODE
@@ -95,10 +98,7 @@ string VIDEO_ID;
         string jsonResponse = reader.ReadToEnd();
         Root videoData = JsonConvert.DeserializeObject<Root>(jsonResponse);
         int thisLikeCount = videoData.Items[0].Statistics.LikeCount;
-        //Debug.Log("Like count: " + thisLikeCount);
-
-        //Update UI
-        GameObject.Find("LikesText").GetComponent<Text>().text = ""+thisLikeCount;
+        
         return thisLikeCount;
     }
 
@@ -137,6 +137,12 @@ string VIDEO_ID;
         if (!seenChats.Contains(items[i].Id)) {
             SpawnSnack();
             seenChats.Add(items[i].Id);
+            if (seenChats.Count > MAX_CHAT_COUNT) {
+                seenChats.RemoveAt(seenChats.Count-1);
+            }
+            seenChatCount += 1;
+
+            GameObject.Find("LikesText").GetComponent<Text>().text = ""+seenChatCount;
         }
     }
     }
@@ -229,4 +235,12 @@ public partial class PageInfo
     public long TotalResults { get; set; }
 
     public long ResultsPerPage { get; set; }
+}
+
+public class OrderedHashSet<T> : KeyedCollection<T, T>
+{
+    protected override T GetKeyForItem(T item)
+    {
+        return item;
+    }
 }
