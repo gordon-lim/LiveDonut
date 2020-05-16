@@ -10,5 +10,6 @@ public class Snack : MonoBehaviour
        SnackList.snackList.Remove(snackPos);
        GameObject.Find("Dog").GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.None;
        GameObject.Find("Dog").GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeRotation;
+    
    }
 }

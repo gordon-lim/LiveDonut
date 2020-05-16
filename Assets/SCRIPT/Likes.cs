@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Likes : MonoBehaviour
 {
     Text text;
-    private int likeCount = 0;
+    private int donutCount = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +14,6 @@ public class Likes : MonoBehaviour
     }
 
     void updateLikeCount(){
-        text.text="" + likeCount;
+        text.text="" + donutCount;
     }
 }

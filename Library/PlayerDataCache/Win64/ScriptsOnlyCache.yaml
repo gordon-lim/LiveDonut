@@ -3,16 +3,20 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - Likes
     - Pet
-    - Settings
     - Snack
     - SnackSpawner
     - SnackTrigger
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.Tilemap.Editor.dll:
+    - UnityEditor.Tilemaps.GridBrush
+    - UnityEditor.Tilemaps.GridBrushEditor
+    - UnityEditor.Tilemaps.GridPaintPaletteClipboard
+    - UnityEditor.Tilemaps.GridPaintPaletteWindow
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
     - UnityEditor.Tilemaps.GridPalettes
+    - UnityEditor.Tilemaps.PaintableSceneViewGrid
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.Rider.Editor.dll:
@@ -30,11 +34,9 @@ ScriptsOnlyBuild:
     UnityEngine.UI.dll:
     - UnityEngine.EventSystems.EventSystem
     - UnityEngine.EventSystems.StandaloneInputModule
-    - UnityEngine.UI.Button
     - UnityEngine.UI.CanvasScaler
     - UnityEngine.UI.GraphicRaycaster
     - UnityEngine.UI.Image
-    - UnityEngine.UI.InputField
     - UnityEngine.UI.Text
   sceneClasses:
     Assets/LiveDonut.unity:
@@ -71,25 +73,25 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11198}
     - Class: 114
-      Script: {instanceID: 11468}
+      Script: {instanceID: 11466}
     - Class: 114
-      Script: {instanceID: 11472}
+      Script: {instanceID: 11470}
     - Class: 114
-      Script: {instanceID: 11522}
+      Script: {instanceID: 11520}
     - Class: 114
-      Script: {instanceID: 12062}
+      Script: {instanceID: 12060}
     - Class: 114
-      Script: {instanceID: 12148}
+      Script: {instanceID: 12146}
     - Class: 114
-      Script: {instanceID: 12340}
+      Script: {instanceID: 12338}
     - Class: 114
-      Script: {instanceID: 12636}
+      Script: {instanceID: 12634}
     - Class: 114
-      Script: {instanceID: 13174}
+      Script: {instanceID: 13172}
     - Class: 114
-      Script: {instanceID: 13496}
+      Script: {instanceID: 13494}
     - Class: 114
-      Script: {instanceID: 14058}
+      Script: {instanceID: 14056}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -116,57 +118,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 1839735485
       Script: {instanceID: 0}
-    Assets/Settings.unity:
-    - Class: 1
-      Script: {instanceID: 0}
-    - Class: 4
-      Script: {instanceID: 0}
-    - Class: 20
-      Script: {instanceID: 0}
-    - Class: 21
-      Script: {instanceID: 0}
-    - Class: 28
-      Script: {instanceID: 0}
-    - Class: 48
-      Script: {instanceID: 0}
-    - Class: 81
-      Script: {instanceID: 0}
-    - Class: 104
-      Script: {instanceID: 0}
-    - Class: 114
-      Script: {instanceID: 11198}
-    - Class: 114
-      Script: {instanceID: 11218}
-    - Class: 114
-      Script: {instanceID: 11468}
-    - Class: 114
-      Script: {instanceID: 11522}
-    - Class: 114
-      Script: {instanceID: 12148}
-    - Class: 114
-      Script: {instanceID: 12794}
-    - Class: 114
-      Script: {instanceID: 13056}
-    - Class: 114
-      Script: {instanceID: 13496}
-    - Class: 114
-      Script: {instanceID: 14058}
-    - Class: 115
-      Script: {instanceID: 0}
-    - Class: 128
-      Script: {instanceID: 0}
-    - Class: 157
-      Script: {instanceID: 0}
-    - Class: 196
-      Script: {instanceID: 0}
-    - Class: 213
-      Script: {instanceID: 0}
-    - Class: 222
-      Script: {instanceID: 0}
-    - Class: 223
-      Script: {instanceID: 0}
-    - Class: 224
-      Script: {instanceID: 0}
   scriptHashData:
   - hash:
       serializedVersion: 2
@@ -174,12 +125,6 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: CanvasScaler
-  - hash:
-      serializedVersion: 2
-      Hash: 17628f86df1c21e4a7864d8be81abae7
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: Settings
   - hash:
       serializedVersion: 2
       Hash: 87ff43d2baf3385cba327d8f803a4ebb
@@ -332,7 +277,7 @@ ScriptsOnlyBuild:
     className: Shadow
   - hash:
       serializedVersion: 2
-      Hash: d6ecdfa698c1e945b9cbebe72c8c5d1b
+      Hash: 68528778d274ab3300bff8a64183c07c
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: SnackSpawner
@@ -584,6 +529,5 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   platform: 19
   scenePathNames:
-  - Assets/Settings.unity
   - Assets/LiveDonut.unity
-  playerPath: /Users/soymilk/Desktop/Unity_LiveDonut/prototype_windows/LiveDonut.exe
+  playerPath: /Users/soymilk/Desktop/final_windows/LiveDonut.exe

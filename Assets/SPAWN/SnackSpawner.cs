@@ -11,17 +11,13 @@ using Newtonsoft.Json.Converters;
 
 public class SnackSpawner : MonoBehaviour
 {
-
-
-[SerializeField]
-string VIDEO_ID;
 ////////////////////////////////
 ////////////////////////////////
 ////////////////////////////////
 
     public GameObject snackPrefab;
     
-    public float apiCallDelay = 2.0f;
+    public float apiCallDelay = 1.0f;
     private Vector2 screenBounds;
     
     /////API KEYS HERE///////
@@ -55,7 +51,6 @@ string VIDEO_ID;
     // Start is called before the first frame update
     void Start()
     {
-        VIDEO_ID = PlayerPrefs.GetString("video_ID");
         //Debug.Log(VIDEO_ID);
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         
@@ -89,14 +84,16 @@ string VIDEO_ID;
     
         string API_KEY = getKey();
         //Debug.Log(API_KEY);
-        string LIVE_CHAT_ID = "Cg0KC1h1YTNuOHVxaWpBKicKGFVDVnhoX1dGa1VCZjRfSG9pS3BUUmhNQRILWHVhM244dXFpakE";
+        string LIVE_CHAT_ID = "Cg0KC19pSlk5TzlxdEhRKicKGFVDVnhoX1dGa1VCZjRfSG9pS3BUUmhNQRILX2lKWTlPOXF0SFE";
         string URL = string.Format("https://www.googleapis.com/youtube/v3/liveChat/messages?key={0}&part=id&liveChatId={1}", API_KEY, LIVE_CHAT_ID);
+
+        //Debug.Log("trying");
         HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
         HttpWebResponse response = (HttpWebResponse)request.GetResponse();
         StreamReader reader = new StreamReader(response.GetResponseStream());
         string jsonResponse = reader.ReadToEnd();
         LiveChatMessages liveChatMessages = JsonConvert.DeserializeObject<LiveChatMessages>(jsonResponse);
-        return liveChatMessages.Items;
+        return liveChatMessages.Items; 
     }
 
     // Add snack for each new live chat
@@ -122,7 +119,12 @@ string VIDEO_ID;
     IEnumerator keepCallingYoutube(){
         while(true){
             yield return new WaitForSeconds(apiCallDelay);
-            addSnacksByLivechat(CallYouTubeForChats());
+            //Debug.Log("calling");
+            try{
+             addSnacksByLivechat(CallYouTubeForChats());   
+            }catch(WebException e){
+                //Debug.Log(e);
+            }
         }
     }
     

@@ -38,7 +38,6 @@
   <ItemGroup>
      <Compile Include="Assets\SCRIPT\Likes.cs" />
      <Compile Include="Assets\SCRIPT\Pet.cs" />
-     <Compile Include="Assets\SCRIPT\Settings.cs" />
      <Compile Include="Assets\SCRIPT\Snack.cs" />
      <Compile Include="Assets\SCRIPT\SnackList.cs" />
      <Compile Include="Assets\SPAWN\SnackSpawner.cs" />

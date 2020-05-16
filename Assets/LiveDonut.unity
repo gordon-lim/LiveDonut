@@ -177,7 +177,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2bc26b76a569149ddbeb3c3a9ab79663, type: 3}
+  m_Sprite: {fileID: -8130450901040886134, guid: be5aaade089b345dd8c5d70be52aae77,
+    type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1118,7 +1119,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 10000
+  m_Text: '0
+
+'
 --- !u!222 &1431566252
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1308,7 +1311,7 @@ MonoBehaviour:
   VIDEO_ID: YC4TnbHzIMI
   snackPrefab: {fileID: 1524649569944622311, guid: 924f06dbae4864485850f2c2b239d622,
     type: 3}
-  apiCallDelay: 2
+  apiCallDelay: 1
 --- !u!4 &1876299763
 Transform:
   m_ObjectHideFlags: 0
