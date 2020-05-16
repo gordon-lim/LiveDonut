@@ -43,6 +43,7 @@ string VIDEO_ID;
     
     
     private int likeCount = 0;
+    private int chatCount = 0;
     
 ////////////////////////////////
 // START OF CODE
@@ -101,6 +102,25 @@ string VIDEO_ID;
         return thisLikeCount;
     }
 
+    int CallYouTubeForChats(){
+    
+        string API_KEY = getKey();
+        //Debug.Log(API_KEY);
+        string LIVE_CHAT_ID = "Cg0KC1h1YTNuOHVxaWpBKicKGFVDVnhoX1dGa1VCZjRfSG9pS3BUUmhNQRILWHVhM244dXFpakE";
+        string URL = string.Format("https://www.googleapis.com/youtube/v3/liveChat/messages?key={0}&part=id&liveChatId={1}", API_KEY, LIVE_CHAT_ID);
+        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        StreamReader reader = new StreamReader(response.GetResponseStream());
+        string jsonResponse = reader.ReadToEnd();
+        LiveChatMessages liveChatMessages = JsonConvert.DeserializeObject<LiveChatMessages>(jsonResponse);
+        int thisChatCount = (int) liveChatMessages.PageInfo.TotalResults;
+        Debug.Log("Chat count: " + thisChatCount);
+
+        //Update UI
+        // GameObject.Find("LikesText").GetComponent<Text>().text = ""+thisLikeCount;
+        return thisChatCount;
+    }
+
     void addSnacksByLikes(int thisLikeCount){
     int snackssToAdd = thisLikeCount - likeCount;
     if(snackssToAdd > 0){
@@ -113,10 +133,23 @@ string VIDEO_ID;
     likeCount = thisLikeCount;
     }
     
+    void addSnacksByLivechat(int thisChatCount){
+    int snackssToAdd = thisChatCount - chatCount;
+    if(snackssToAdd > 0){
+        //Add carrots
+        for (int index = 1; index <= snackssToAdd; index++)
+        {
+            SpawnSnack();
+        }
+    }
+    chatCount = thisChatCount;
+    }
+    
     IEnumerator keepCallingYoutube(){
         while(true){
             yield return new WaitForSeconds(apiCallDelay);
             addSnacksByLikes(CallYouTubeForLikes());
+            addSnacksByLivechat(CallYouTubeForChats());
         }
     }
     
@@ -168,4 +201,35 @@ public class Statistics
     public long FavoriteCount { get; set; }
 
     public long CommentCount { get; set; }
+}
+
+public class LiveChatMessages
+{
+    public string Kind { get; set; }
+
+    public string Etag { get; set; }
+
+    public string NextPageToken { get; set; }
+
+    public long PollingIntervalMillis { get; set; }
+
+    public PageInfo PageInfo { get; set; }
+
+    public LiveChatItem[] Items { get; set; }
+}
+
+public class LiveChatItem
+{
+    public string Kind { get; set; }
+
+    public string Etag { get; set; }
+
+    public string Id { get; set; }
+}
+
+public partial class PageInfo
+{
+    public long TotalResults { get; set; }
+
+    public long ResultsPerPage { get; set; }
 }
