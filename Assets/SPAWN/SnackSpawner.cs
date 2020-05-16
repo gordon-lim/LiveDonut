@@ -43,7 +43,7 @@ string VIDEO_ID;
     
     
     private int likeCount = 0;
-    private int chatCount = 0;
+    private HashSet<string> seenChats = new HashSet<string>(); 
     
 ////////////////////////////////
 // START OF CODE
@@ -102,7 +102,7 @@ string VIDEO_ID;
         return thisLikeCount;
     }
 
-    int CallYouTubeForChats(){
+    LiveChatItem[] CallYouTubeForChats(){
     
         string API_KEY = getKey();
         //Debug.Log(API_KEY);
@@ -113,12 +113,7 @@ string VIDEO_ID;
         StreamReader reader = new StreamReader(response.GetResponseStream());
         string jsonResponse = reader.ReadToEnd();
         LiveChatMessages liveChatMessages = JsonConvert.DeserializeObject<LiveChatMessages>(jsonResponse);
-        int thisChatCount = (int) liveChatMessages.PageInfo.TotalResults;
-        Debug.Log("Chat count: " + thisChatCount);
-
-        //Update UI
-        // GameObject.Find("LikesText").GetComponent<Text>().text = ""+thisLikeCount;
-        return thisChatCount;
+        return liveChatMessages.Items;
     }
 
     void addSnacksByLikes(int thisLikeCount){
@@ -133,17 +128,20 @@ string VIDEO_ID;
     likeCount = thisLikeCount;
     }
     
-    void addSnacksByLivechat(int thisChatCount){
-    int snackssToAdd = thisChatCount - chatCount;
-    if(snackssToAdd > 0){
-        //Add carrots
-        for (int index = 1; index <= snackssToAdd; index++)
-        {
+    // Add snack for each new live chat
+    void addSnacksByLivechat(LiveChatItem[] items) {
+    
+    // Iterate from backwards to find new chats
+    for (int i = items.Length; i --> 0; )
+    {
+        Debug.Log("Item" + items[i]);
+        if (!seenChats.Contains(items[i].Id)) {
             SpawnSnack();
+            seenChats.Add(items[i].Id);
         }
     }
-    chatCount = thisChatCount;
     }
+
     
     IEnumerator keepCallingYoutube(){
         while(true){
