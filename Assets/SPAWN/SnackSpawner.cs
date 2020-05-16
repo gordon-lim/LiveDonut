@@ -43,8 +43,7 @@ string VIDEO_ID;
     private int length = apiKeys.Count;
     private int MAX_CHAT_COUNT = 1000;
     
-    
-    private int likeCount = 0;
+
     private OrderedHashSet<string> seenChats = new OrderedHashSet<string>();
     private int seenChatCount = 0;
     
@@ -60,7 +59,6 @@ string VIDEO_ID;
         //Debug.Log(VIDEO_ID);
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         
-        likeCount = CallYouTubeForLikes();
         StartCoroutine(keepCallingYoutube());
     }
 
@@ -86,21 +84,6 @@ string VIDEO_ID;
 ////////////////////////////////
 // API CALL
 ////////////////////////////////
-    
-    int CallYouTubeForLikes(){
-    
-        string API_KEY = getKey();
-        //Debug.Log(API_KEY);
-        string URL = string.Format("https://www.googleapis.com/youtube/v3/videos?key={0}&part=statistics&id={1}", API_KEY, VIDEO_ID);
-        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
-        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-        StreamReader reader = new StreamReader(response.GetResponseStream());
-        string jsonResponse = reader.ReadToEnd();
-        Root videoData = JsonConvert.DeserializeObject<Root>(jsonResponse);
-        int thisLikeCount = videoData.Items[0].Statistics.LikeCount;
-        
-        return thisLikeCount;
-    }
 
     LiveChatItem[] CallYouTubeForChats(){
     
@@ -116,18 +99,6 @@ string VIDEO_ID;
         return liveChatMessages.Items;
     }
 
-    void addSnacksByLikes(int thisLikeCount){
-    int snackssToAdd = thisLikeCount - likeCount;
-    if(snackssToAdd > 0){
-        //Add carrots
-        for (int index = 1; index <= snackssToAdd; index++)
-        {
-            SpawnSnack();
-        }
-    }
-    likeCount = thisLikeCount;
-    }
-    
     // Add snack for each new live chat
     void addSnacksByLivechat(LiveChatItem[] items) {
     
@@ -151,7 +122,6 @@ string VIDEO_ID;
     IEnumerator keepCallingYoutube(){
         while(true){
             yield return new WaitForSeconds(apiCallDelay);
-            addSnacksByLikes(CallYouTubeForLikes());
             addSnacksByLivechat(CallYouTubeForChats());
         }
     }
@@ -172,39 +142,6 @@ string VIDEO_ID;
 ////////////////////////////////
 // STUPID CLASSES FOR JSON
 ////////////////////////////////
-public class Root
-{
-    public string Kind { get; set; }
-
-    public string Etag { get; set; }
-
-    public Item[] Items { get; set; }
-}
-
-public class Item
-{
-    public string Kind { get; set; }
-
-    public string Etag { get; set; }
-
-    public string Id { get; set; }
-
-    public Statistics Statistics { get; set; }
-}
-
-public class Statistics
-{
-    
-    public long ViewCount { get; set; }
-
-    public int LikeCount { get; set; }
-
-    public long DislikeCount { get; set; }
-
-    public long FavoriteCount { get; set; }
-
-    public long CommentCount { get; set; }
-}
 
 public class LiveChatMessages
 {
